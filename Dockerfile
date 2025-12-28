@@ -17,7 +17,8 @@ FROM ubuntu:22.04
 RUN apt-get update && \
     apt-get install -y bash && \
     rm -rf /var/lib/apt/lists/*
-    apt-get install wget
+
+RUN ap-get install wget
 
 CMD ["bash"]
 
