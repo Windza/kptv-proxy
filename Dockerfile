@@ -42,6 +42,8 @@ RUN mkdir -p /dev/dri && \
     chmod -R 755 /static && \
     chown -R kptv:kptv /settings && \
     chmod 775 /settings
+RUN mkdir settings
+    wget https://raw.githubusercontent.com/your-repo/kptv-proxy/main/docker-compose.example.yaml -O docker-compose.yaml
 
 WORKDIR /workspace
 USER kptv
