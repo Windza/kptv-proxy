@@ -16,10 +16,6 @@ FROM ubuntu:latest
 RUN apt-get update && \
     apt-get install -y bash && \
     rm -rf /var/lib/apt/lists/*
-# Command to run when the container starts
-CMD ["bash"]
-
-
 # Install wget
 FROM debian:11-slim
 RUN apt-get update && apt-get install -y wget gnupg g++ apt-utils curl git && apt-get clean
@@ -65,4 +61,5 @@ USER kptv
 ENV PATH="/usr/local/bin:${PATH}"
 
 EXPOSE 8080
-CMD ["/usr/local/bin/kptv-proxy"]
+
+CMD ["/usr/local/bin/kptv-proxy", "BASH"]
