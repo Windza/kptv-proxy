@@ -21,6 +21,9 @@ FROM docker.io/debian:bookworm-slim
     libva-x11-2 \
     vulkan-tools \
     va-driver-all \
+    bash \
+    wget \
+    nano \
     curl \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
@@ -45,19 +48,6 @@ RUN mkdir -p /dev/dri && \
 
 WORKDIR /workspace
 USER kptv
-
-# Install BASH
-FROM ubuntu:latest
-RUN apt-get update && \
-    apt-get install -y bash && \
-    rm -rf /var/lib/apt/lists/*
-# Install wget
-FROM debian:11-slim
-RUN apt-get update && apt-get install -y wget gnupg g++ apt-utils curl git && apt-get clean
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get update && apt-get install -y nodejs \
-    && apt-get clean
-RUN apt-get update && apt-get install -y nano
 
 ENV PATH="/usr/local/bin:${PATH}"
 
