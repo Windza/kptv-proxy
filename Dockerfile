@@ -11,19 +11,6 @@ RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w -X main.Version=v10102025.
 # Final stage - keep all GPU drivers
 FROM docker.io/debian:bookworm-slim
 
-# Install BASH
-FROM ubuntu:latest
-RUN apt-get update && \
-    apt-get install -y bash && \
-    rm -rf /var/lib/apt/lists/*
-# Install wget
-FROM debian:11-slim
-RUN apt-get update && apt-get install -y wget gnupg g++ apt-utils curl git && apt-get clean
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get update && apt-get install -y nodejs \
-    && apt-get clean
-RUN apt-get update && apt-get install -y nano
-
 # Install all GPU drivers + curl in one layer
     RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -55,6 +42,20 @@ RUN mkdir -p /dev/dri && \
     chmod -R 755 /static && \
     chown -R kptv:kptv /settings && \
     chmod 775 /settings
+
+# Install BASH
+FROM ubuntu:latest
+RUN apt-get update && \
+    apt-get install -y bash && \
+    rm -rf /var/lib/apt/lists/*
+# Install wget
+FROM debian:11-slim
+RUN apt-get update && apt-get install -y wget gnupg g++ apt-utils curl git && apt-get clean
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get update && apt-get install -y nodejs \
+    && apt-get clean
+RUN apt-get update && apt-get install -y nano
+
 WORKDIR /workspace
 USER kptv
 
@@ -63,3 +64,4 @@ ENV PATH="/usr/local/bin:${PATH}"
 EXPOSE 8080
 
 CMD ["/usr/local/bin/kptv-proxy", "BASH"]
+
