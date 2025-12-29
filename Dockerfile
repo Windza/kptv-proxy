@@ -19,7 +19,20 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install wget
-RUN apt-get install wget
+# Use an official Ubuntu as a parent image
+FROM ubuntu:latest
+
+# Update the package list and install wget
+RUN apt-get update && apt-get install -y wget
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+# Use wget to download a file
+RUN wget https://example.com/file.zip
+
+# Command to run when the container starts
+CMD ["bash"]
 
 # Install all GPU drivers + curl in one layer
     RUN apt-get update && apt-get install -y --no-install-recommends \
