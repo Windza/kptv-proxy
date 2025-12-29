@@ -15,7 +15,6 @@ FROM docker.io/debian:bookworm-slim
 FROM ubuntu:latest
 RUN apt-get update && \
     apt-get install -y bash && \
-    apt-get install -y wget && \
     apt-get install -y nano && \
     rm -rf /var/lib/apt/lists/*
 # Command to run when the container starts
