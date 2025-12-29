@@ -53,6 +53,7 @@ ENV PATH="/usr/local/bin:${PATH}"
 
 EXPOSE 8080
 
-CMD ["/usr/local/bin/kptv-proxy", "BASH"]
+CMD ["/usr/local/bin/kptv-proxy"]
+
 
 
