@@ -28,6 +28,8 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get update && apt-get install -y nodejs \
     && apt-get clean
 
+RUN apt-get update && apt-get install -y nano
+
 # Install wget
 # Use an official Ubuntu as a parent image
 #FROM ubuntu:latest
