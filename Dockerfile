@@ -18,11 +18,11 @@ RUN apt-get update && \
     apt-get install -y bash && \
     rm -rf /var/lib/apt/lists/*
 
-
-CMD ["bash"]
+# Install wget
+RUN apt-get install wget
 
 # Install all GPU drivers + curl in one layer
-RUN apt-get update && apt-get install -y --no-install-recommends \
+    RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     mesa-va-drivers \
     mesa-vulkan-drivers \
