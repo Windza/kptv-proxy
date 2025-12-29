@@ -18,30 +18,3 @@ services:
       timeout: 10s
       retries: 3
       start_period: 10s
-FFmpeg Hardware Acceleration:
-{
-  "ffmpegMode": true,
-  "ffmpegPreInput": [
-    "-hwaccel", "vaapi",
-    "-hwaccel_device", "/dev/dri/renderD128",
-    "-re"
-  ],
-  "ffmpegPreOutput": [
-    "-c:v", "h264_vaapi",
-    "-c:a", "aac",
-    "-f", "mpegts"
-  ]
-}
-Provider Setup:
-{
-  "sources": [
-    {
-      "name": "Premium Eclipse",
-      "url": "http://premiumeclipse2.xyz",
-      "username": "SimonH170724",
-      "password": "beWDwym",
-      "order": 1,
-      "maxConnections": 5
-    }
-  ]
-}
