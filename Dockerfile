@@ -25,13 +25,14 @@ FROM docker.io/debian:bookworm-slim
     wget \
     nano \
     curl \
+    sudo \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
 RUN groupadd --system --gid 107 render
 
-COPY --from=docker.io/mwader/static-ffmpeg:latest /ffmpeg /usr/local/bin/
-COPY --from=docker.io/mwader/static-ffmpeg:latest /ffprobe /usr/local/bin/
+COPY --from=docker.io/mwader/static-ffmpeg:6.1 /ffmpeg /usr/local/bin/
+COPY --from=docker.io/mwader/static-ffmpeg:6.1 /ffprobe /usr/local/bin/
 COPY --from=builder /app/kptv-proxy /usr/local/bin/kptv-proxy
 COPY --from=builder /app/static /static
 
@@ -49,11 +50,18 @@ RUN mkdir -p /dev/dri && \
 WORKDIR /workspace
 USER kptv
 
+RUN echo "kptv ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+HEALTHCHECK --interval=30s --timeout=5s \
+  CMD curl -f http://localhost:8080/health || exit 1
+
+ENV SETTINGS_DIR=/settings
 ENV PATH="/usr/local/bin:${PATH}"
 
 EXPOSE 8080
 
 CMD ["/usr/local/bin/kptv-proxy"]
+
 
 
 
